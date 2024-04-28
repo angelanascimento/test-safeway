@@ -32,6 +32,7 @@ public class CustomerService {
         Customer create = new Customer();
         create.setName(customerDTO.getName());
         create.setCpf(customerDTO.getCpf());
+        create.setEmail(customerDTO.getEmail());
         create = customerRepository.save(create);
         return new CustomerDTO(create);
     }
@@ -44,6 +45,9 @@ public class CustomerService {
             }
             if (customerDTO.getCpf() != null) {
                 customer.setCpf(customerDTO.getCpf());
+            }
+            if(customerDTO.getEmail() != null) {
+                customer.setEmail(customerDTO.getEmail());
             }
 
             customerRepository.save(customer);

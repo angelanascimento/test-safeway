@@ -36,6 +36,8 @@ public class CompanyService {
 		create.setName(companyDTO.getName());
 		create.setCnpj(companyDTO.getCnpj());
 		create.setEmail(companyDTO.getEmail());
+		create.setWithdrawalFee(companyDTO.getWithdrawalFee());
+		create.setDepositFee(companyDTO.getDepositFee());
 		create = companyRepository.save(create);
 		return new CompanyDTO(create);
 	}
@@ -51,6 +53,12 @@ public class CompanyService {
 			}
 			if(companyDTO.getEmail() != null) {
 				company.setEmail(companyDTO.getEmail());
+			}
+			if(companyDTO.getWithdrawalFee() != null) {
+				company.setWithdrawalFee(companyDTO.getWithdrawalFee());
+			}
+			if(companyDTO.getDepositFee() != null) {
+				company.setDepositFee(companyDTO.getDepositFee());
 			}
 
 			companyRepository.save(company);
