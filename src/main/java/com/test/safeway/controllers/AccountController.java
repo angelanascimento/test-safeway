@@ -38,11 +38,25 @@ private final AccountService accountService;
 	}
 
 	@PostMapping
-	public ResponseEntity<AccountDTO> create(@RequestBody AccountDTO accountDTO) {
-		accountDTO = accountService.create(accountDTO);
+	public ResponseEntity<Account> create(@RequestBody AccountDTO accountDTO) {
+		Account account = accountService.create(accountDTO);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(accountDTO.getId()).toUri();
-		return ResponseEntity.created(uri).body(accountDTO);
+		return ResponseEntity.created(uri).body(account);
+	}
+
+	@PutMapping("/withdraw/{id}")
+	public ResponseEntity<String> withdraw(@PathVariable Long id, Double value) {
+		String account = accountService.withdraw(id, value);
+
+		return ResponseEntity.ok(account);
+	}
+
+	@PutMapping("deposit/{id}")
+	public ResponseEntity<String> depositFee(@PathVariable Long id, Double value) {
+		String account = accountService.depositFee(id, value);
+
+		return ResponseEntity.ok(account);
 	}
 
 }
