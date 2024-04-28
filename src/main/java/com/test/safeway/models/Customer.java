@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import jakarta.validation.constraints.Email;
 import org.hibernate.validator.constraints.br.CPF;
 
 
@@ -35,20 +37,25 @@ public class Customer implements Serializable{
 	@NotBlank
 	@CPF
 	private String cpf;
-	
+
+	@Column(unique = true)
+	@NotBlank
+	@Email
+	private String email;
+
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "customersId", cascade = CascadeType.REMOVE)
 	@JsonIgnoreProperties("customersId")
 	private List<Account> accounts;
 	
-	private Double balance;
+
 	
 	public Customer() {}
 
-	public Customer(@NotBlank String name, @NotBlank @CPF String cpf, List<Account> accounts, Double balance) {
+	public Customer(@NotBlank String name, @NotBlank @CPF String cpf, List<Account> accounts, String email) {
 		this.name = name;
 		this.cpf = cpf;
 		this.accounts = accounts;
-		this.balance = balance;
+		this.email = email;
 	}
 
 	public Long getId() {
@@ -83,36 +90,39 @@ public class Customer implements Serializable{
 		this.accounts = accounts;
 	}
 
-	public Double getBalance() {
-		return balance;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setBalance(Double balance) {
-		this.balance = balance;
+	public void setEmail(String email) {
+		this.email = email;
 	}
-	
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Customer customer = (Customer) o;
+		return Objects.equals(id, customer.id) &&
+				Objects.equals(name, customer.name) &&
+				Objects.equals(cpf, customer.cpf) &&
+				Objects.equals(email, customer.email) &&
+				Objects.equals(accounts, customer.accounts);
+	}
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(id);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Customer other = (Customer) obj;
-		return Objects.equals(id, other.id);
+		return Objects.hash(id, name, cpf, email, accounts);
 	}
 
 	@Override
 	public String toString() {
-		return "Customer [id=" + id + ", "
-				+ "name=" + name + ", "
-				+ "cpf=" + cpf + ", "
-				+ "balance=" + balance + "]";
+		return "Customer{" +
+				"id=" + id +
+				", name='" + name + '\'' +
+				", cpf='" + cpf + '\'' +
+				", email=" + email +
+				", accounts=" + accounts +
+				'}';
 	}
 }

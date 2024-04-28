@@ -13,17 +13,21 @@ public class AccountDTO implements Serializable {
 	private Long id;
 	private Company companiesId;
 	private Customer customersId;
+	private Double balance;
 	
-	AccountDTO() {}
+	public AccountDTO() {}
 
-	public AccountDTO(Company companiesId, Customer customersId) {
+	public AccountDTO(Company companiesId, Customer customersId,Double balance ) {
 		this.companiesId = companiesId;
 		this.customersId = customersId;
+		this.balance = balance;
 	}
 	
 	public AccountDTO(Account account) {
 		this.companiesId = account.getCompaniesId();
 		this.customersId = account.getCustomersId();
+		this.balance = account.getBalance();
+
 	}
 
 	public Long getId() {
@@ -46,29 +50,36 @@ public class AccountDTO implements Serializable {
 		this.customersId = customersId;
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(companiesId, customersId, id);
+	public Double getBalance() {
+		return balance;
+	}
+	public void setBalance(Double balance) {
+		this.balance = balance;
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		AccountDTO other = (AccountDTO) obj;
-		return Objects.equals(companiesId, other.companiesId) && Objects.equals(customersId, other.customersId)
-				&& Objects.equals(id, other.id);
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		AccountDTO that = (AccountDTO) o;
+		return Objects.equals(id, that.id) &&
+				Objects.equals(companiesId, that.companiesId) &&
+				Objects.equals(customersId, that.customersId) &&
+				Objects.equals(balance, that.balance);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, companiesId, customersId, balance);
 	}
 
 	@Override
 	public String toString() {
-		return "AccountDTO [id=" + id + ", "
-				+ "companiesId=" + companiesId + ", "
-				+ "customersId=" + customersId + "]";
+		return "AccountDTO{" +
+				"id=" + id +
+				", companiesId=" + companiesId +
+				", customersId=" + customersId +
+				", balance=" + balance +
+				'}';
 	}
-
 }

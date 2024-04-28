@@ -31,13 +31,16 @@ public class Account implements Serializable{
 	@ManyToOne
     @JsonIgnoreProperties("accounts")
 	private Customer customersId;
+
+	private Double balance = 0.0;
 	
 	public Account() {}
 
-	public Account(Long id, @NotNull Company companiesId, @NotNull Customer customersId) {
+	public Account(Long id, @NotNull Company companiesId, @NotNull Customer customersId, Double balance) {
 		this.id = id;
 		this.companiesId = companiesId;
 		this.customersId = customersId;
+		this.balance = balance;
 	}
 
 	public Long getId() {
@@ -64,27 +67,37 @@ public class Account implements Serializable{
 		this.customersId = customersId;
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(id);
+	public Double getBalance() {
+		return balance;
+	}
+
+	public void setBalance(Double balance) {
+		this.balance = balance;
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Account other = (Account) obj;
-		return Objects.equals(id, other.id);
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Account account = (Account) o;
+		return Objects.equals(id, account.id) &&
+				Objects.equals(companiesId, account.companiesId) &&
+				Objects.equals(customersId, account.customersId) &&
+				Objects.equals(balance, account.balance);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, companiesId, customersId, balance);
 	}
 
 	@Override
 	public String toString() {
-		return "Account [id=" + id + ", "
-				+ "companiesId=" + companiesId + ", "
-				+ "customersId=" + customersId + "]";
+		return "Account{" +
+				"id=" + id +
+				", companiesId=" + companiesId +
+				", customersId=" + customersId +
+				", balance=" + balance +
+				'}';
 	}
 }
