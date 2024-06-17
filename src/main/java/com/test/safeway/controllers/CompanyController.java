@@ -8,11 +8,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.test.safeway.dto.CompanyDTO;
+import com.test.safeway.dtos.CompanyDTO;
 import com.test.safeway.models.Company;
 import com.test.safeway.services.CompanyService;
-
-import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/companies")

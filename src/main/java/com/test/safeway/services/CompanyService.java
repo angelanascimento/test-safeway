@@ -6,7 +6,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.test.safeway.dto.CompanyDTO;
+import com.test.safeway.dtos.CompanyDTO;
 import com.test.safeway.models.Company;
 import com.test.safeway.repositories.CompanyRepository;
 import com.test.safeway.services.exceptions.CompanyNotFoundException;

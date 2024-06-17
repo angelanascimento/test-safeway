@@ -1,6 +1,6 @@
 package com.test.safeway.controllers;
 
-import com.test.safeway.dto.CustomerDTO;
+import com.test.safeway.dtos.CustomerDTO;
 import com.test.safeway.models.Customer;
 import com.test.safeway.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;

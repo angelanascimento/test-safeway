@@ -1,6 +1,6 @@
 package com.test.safeway.services;
 
-import com.test.safeway.dto.CustomerDTO;
+import com.test.safeway.dtos.CustomerDTO;
 import com.test.safeway.models.Customer;
 import com.test.safeway.repositories.CustomerRepository;
 import com.test.safeway.services.exceptions.CustomerNotFoundException;

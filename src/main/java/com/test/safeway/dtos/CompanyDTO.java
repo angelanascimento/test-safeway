@@ -1,4 +1,4 @@
-package com.test.safeway.dto;
+package com.test.safeway.dtos;
 
 import java.io.Serializable;
 import java.util.Objects;

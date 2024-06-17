@@ -1,10 +1,9 @@
-package com.test.safeway.dto;
+package com.test.safeway.dtos;
 
 import java.io.Serializable;
 import java.util.Objects;
 
 import com.test.safeway.models.Customer;
-import jakarta.validation.constraints.Email;
 
 public class CustomerDTO implements Serializable {
 	private static final long serialVersionUID = 1L;

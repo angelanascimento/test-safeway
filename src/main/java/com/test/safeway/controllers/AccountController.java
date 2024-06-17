@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.test.safeway.dto.AccountDTO;
+import com.test.safeway.dtos.AccountDTO;
 import com.test.safeway.models.Account;
 import com.test.safeway.services.AccountService;
 

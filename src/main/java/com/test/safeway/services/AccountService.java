@@ -13,7 +13,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.test.safeway.dto.AccountDTO;
+import com.test.safeway.dtos.AccountDTO;
 import com.test.safeway.models.Account;
 import com.test.safeway.repositories.AccountRepository;
 
