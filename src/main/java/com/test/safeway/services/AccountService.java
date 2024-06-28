@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import com.test.safeway.models.Company;
 import com.test.safeway.models.Customer;
+import com.test.safeway.models.Email;
 import com.test.safeway.repositories.CompanyRepository;
 import com.test.safeway.repositories.CustomerRepository;
 import com.test.safeway.services.exceptions.AccountNotFoundException;
@@ -17,18 +18,21 @@ import com.test.safeway.dtos.AccountDTO;
 import com.test.safeway.models.Account;
 import com.test.safeway.repositories.AccountRepository;
 
+
 @Service
 public class AccountService {
 
 	private final AccountRepository accountRepository;
 	private final CompanyRepository companyRepository;
-	private final CustomerRepository customerRepository;
-	
+	private final EmailService emailService;
+
+
+
 	@Autowired
-	public AccountService(AccountRepository accountRepository, CompanyRepository companyRepository, CustomerRepository customerRepository) {
+	public AccountService(AccountRepository accountRepository, CompanyRepository companyRepository, EmailService emailService) {
 		this.accountRepository = accountRepository;
         this.companyRepository = companyRepository;
-        this.customerRepository = customerRepository;
+        this.emailService = emailService;
     }
 	
 	public List<Account> findAll() {
@@ -79,13 +83,19 @@ public class AccountService {
 		account.get().setBalance(account.get().getBalance()- value - withdrawalFee);
 		update(accountId, account.get());
 
+		Email email = new Email("commercial.araujo@gmail.com", customer.getEmail(), "Saque realizado na sua conta bancária",
+				String.format("Olá, %s%nO saque no valor de  R$ %.2f foi realizado com sucesso.", customer.getName(), value ));
+		emailService.sendEmail(email);
+
 		return "Saque Realizado com Sucesso!";
+
     }
 	@Transactional
 	public String depositFee(Long accountId, Double value) {
 
 		Optional<Account> account = accountRepository.findById(accountId);
 		Company company = account.get().getCompaniesId();
+		Customer customer = account.get().getCustomersId();
 
 		if(account.isEmpty()) {
 			throw new AccountNotFoundException("ID não encontrado");
@@ -96,6 +106,10 @@ public class AccountService {
 		account.get().setBalance(account.get().getBalance() + value);
 		update(accountId, account.get());
 
-		return "Deposito Realizado com Sucesso!";
+		Email email = new Email("commercial.araujo@gmail.com", customer.getEmail(), "Depósito realizado na sua conta bancária",
+				String.format("Olá, %s%nO depósito no valor de R$ %.2f foi realizado com sucesso.", customer.getName(), value ));
+		emailService.sendEmail(email);
+
+		return "Depósito Realizado com Sucesso!";
 	}
 }

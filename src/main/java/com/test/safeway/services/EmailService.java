@@ -1,8 +1,11 @@
 package com.test.safeway.services;
 
 import com.test.safeway.StatusEmail;
+import com.test.safeway.models.Company;
+import com.test.safeway.models.Customer;
 import com.test.safeway.models.Email;
 import com.test.safeway.repositories.EmailRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
@@ -23,8 +26,8 @@ public class EmailService {
         this.emailSender = emailSender;
     }
 
-
-    public Email sendEmail(Email email) {
+    @Transactional
+    public void sendEmail(Email email) {
 
         email.setSendDateEmail(LocalDateTime.now());
         try{
@@ -38,10 +41,9 @@ public class EmailService {
             email.setStatusEmail(StatusEmail.SENT);
         } catch(MailException e) {
             email.setStatusEmail(StatusEmail.ERROR);
-            System.out.print("O erro: " + e.getMessage());
+            //System.out.print("O erro: " + e.getMessage());
         } finally {
-            return emailRepository.save(email);
+            emailRepository.save(email);
         }
-
     }
 }
