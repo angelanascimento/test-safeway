@@ -45,7 +45,7 @@ public class Company implements Serializable{
 	@JsonIgnoreProperties("companiesId")
 	private List<Account> accounts;
 	
-	private Double balance;
+	private Double balance = 0.0;
 	private Double withdrawalFee;
 	private Double depositFee;
 	

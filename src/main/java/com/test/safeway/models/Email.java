@@ -23,6 +23,15 @@ public class Email {
     private LocalDateTime sendDateEmail;
     private StatusEmail statusEmail;
 
+    public Email() {}
+
+    public Email(String emailFrom, String emailTo, String subject, String text) {
+        this.emailFrom = emailFrom;
+        this.emailTo = emailTo;
+        this.subject = subject;
+        this.text = text;
+    }
+
     public Long getId() {
         return id;
     }
